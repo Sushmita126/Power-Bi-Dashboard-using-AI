@@ -1,0 +1,91 @@
+Craft a goodprompt includingexample for every requirement listed below
+i asm using sql server and i want to create a banking data set using which i will ultimately be creating a powerbi report using sql server as the data source 
+make sure the data that you create has certain data cleaning usin power query editor 
+also the dataset should be such that i will be able to represent 10 kpi on a 2 page power bi report 5 kpis for each page
+suggest those 10 kpi along with chart recommendationand write DAX measure which will be required to create the kpi and represent
+
+
+
+"I am working on a retail banking analytics project. I need you to generate a SQL Server database containing synthetic retail banking data suitable for Power BI analysis. Please ensure the following requirements are met (with concrete examples for each):"
+
+1. Dataset Creation
+Create synthetic tables for:
+
+Customers (CustomerID, FirstName, LastName, Age, Gender, City, AccountType, AccountOpenDate, BranchCode)
+
+Accounts (AccountID, CustomerID, AccountType, Balance, InterestRate, Status)
+
+Transactions (TransactionID, AccountID, TransactionDate, TransactionType [Credit/Debit], Amount, Channel [ATM, Online, Branch])
+
+Loans (LoanID, CustomerID, LoanType, LoanAmount, StartDate, EndDate, Status, InterestRate)
+
+Example:
+Provide sample INSERT queries such as:
+
+sql
+INSERT INTO Customers (CustomerID, FirstName, LastName, Age, Gender, City, AccountType, AccountOpenDate, BranchCode) VALUES
+(1, 'Amit', 'Sharma', 34, 'M', 'bengaluru', 'Savings', '2022-06-01', 'BL45'),
+(2, 'Sara', 'Wilkins', 29, '', 'Bengaluru', 'Current', '2024-01-15', 'BL32');
+2. Data Cleaning Examples for Power Query Editor
+Ensure the dataset includes issues to clean, such as:
+
+Inconsistent city names (e.g., 'Mumbai', 'mumbai', 'MUMBAI')
+
+Gender missing or mistyped ('Male', 'F', '', 'unknown')
+
+Merged names as single field, needs splitting
+
+Amount and Balance columns stored as text, includes currency symbols
+
+Dates in multiple formats ('2023-01-15', '15/01/2023', 'Jan 15 2023')
+
+Example:
+Customers table includes:
+
+sql
+(3, 'Rahul Verma', '', 45, 'M', 'mumbai', 'Savings', '15/07/2019', 'MB01')
+3. 10 KPI Suggestions & Chart Recommendations (across 2 pages)
+Page 1: Retail Banking KPIs
+Total Customers (Card)
+DAX: Total Customers = DISTINCTCOUNT(Customers[CustomerID])
+
+Active Accounts (Card)
+DAX: Active Accounts = CALCULATE(COUNTROWS(Accounts), Accounts[Status]="Active")
+
+Total Deposits (Card)
+DAX: Total Deposits = SUM(Accounts[Balance])
+
+Monthly Transaction Volume (Column Chart)
+DAX: Monthly Transactions = COUNTROWS(Transactions)
+
+Top Cities by Customer Count (Bar Chart)
+DAX: City Wise Count = COUNTROWS(Customers)
+
+Page 2: Loan/Product KPIs
+Total Loans Disbursed (Card)
+DAX: Total Loans = SUM(Loans[LoanAmount])
+
+Outstanding Loan Amount (Card)
+DAX: Outstanding Loan = CALCULATE(SUM(Loans[LoanAmount]), Loans[Status]="Active")
+
+Loan Default Rate (%) (Gauge)
+DAX: Default Rate = DIVIDE(CALCULATE(COUNTROWS(Loans), Loans[Status]="Defaulted"), COUNTROWS(Loans))
+
+Average Loan Interest Rate (Card)
+DAX: Avg Loan Rate = AVERAGE(Loans[InterestRate])
+
+Loan Type Distribution (Donut Chart)
+DAX: Loan Type Count = COUNTROWS(Loans)
+
+4. Chart/Visual Recommendations
+Use Card visuals for totals and averages
+
+Bar/Column charts for time series and segmentation
+
+Donut/Gauge for distribution or rate KPIs
+
+Ready-to-use Prompt:
+
+Generate a SQL Server retail banking dataset with realistic records (and example insert queries), intentionally including inconsistencies for Power Query data cleaning. Suggest 10 KPIs divided into two report pages (5 per page) with recommended visuals and the DAX measure for each KPI.
+
+This prompt covers all requirements in detail, with examples to guide the generation and setup of both the data and the Power BI report.
